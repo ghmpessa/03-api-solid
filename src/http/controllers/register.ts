@@ -23,7 +23,7 @@ export const register = async (req: FastifyRequest, res: FastifyReply) => {
       return res.status(409).send({ message: err.message })
     }
 
-    return res.status(500)
+    throw err
   }
 
   return res.status(201).send()
