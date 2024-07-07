@@ -36,4 +36,22 @@ describe('Authenticate Use case', () => {
       }),
     ).rejects.toBeInstanceOf(InvalidCredentialsError)
   })
+
+  it('should not be able to authenticate with wrong email', async () => {
+    const usersRepository = new InMemoryUsersRepository()
+    const sut = new AuthenticateUseCase(usersRepository)
+
+    await usersRepository.create({
+      name: 'João',
+      email: 'joaok@gmail.com',
+      password_hash: await hash('123456', 6),
+    })
+
+    expect(() =>
+      sut.execute({
+        email: 'joaok@gmail.com',
+        password: '123457',
+      }),
+    ).rejects.toBeInstanceOf(InvalidCredentialsError)
+  })
 })
