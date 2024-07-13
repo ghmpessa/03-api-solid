@@ -2,6 +2,7 @@ import { InMemoryCheckInsRepository } from '@/repositories/in-memory/in-memory-c
 
 import { beforeEach, describe, expect, it, afterEach } from 'vitest'
 import { ValidateCheckInUseCase } from './validate-check-in'
+import { ResourceNotFoundError } from './errors/resource-not-found-error'
 
 let checkInRepository: InMemoryCheckInsRepository
 let sut: ValidateCheckInUseCase
@@ -30,5 +31,13 @@ describe('Validate Check In Use case', () => {
 
     expect(checkIn.validated_at).toEqual(expect.any(Date))
     expect(checkInRepository.items[0].validated_at).toEqual(expect.any(Date))
+  })
+
+  it('should not be able to validate an inexistent check-in', async () => {
+    await expect(() =>
+      sut.execute({
+        checkInId: 'inexistent-check-in-id',
+      }),
+    ).rejects.toBeInstanceOf(ResourceNotFoundError)
   })
 })
