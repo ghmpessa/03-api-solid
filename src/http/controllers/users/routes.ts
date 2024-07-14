@@ -3,10 +3,13 @@ import { register } from './register'
 import { authenticate } from './authenticate'
 import { profile } from './profile'
 import { verifyJWT } from '../../middlewares/verify-jew'
+import { refresh } from './refresh'
 
 export const usersRoutes = async (app: FastifyInstance) => {
   app.post('/users', register)
   app.post('/sessions', authenticate)
+
+  app.patch('/token/refresh', refresh)
 
   app.get(
     '/me',
