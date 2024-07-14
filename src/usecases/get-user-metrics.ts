@@ -3,7 +3,6 @@ import { CheckInsRepository } from '@/repositories/check-ins-repository'
 
 interface GetUserMetricsUseCaseRequest {
   userId: string
-  page: number
 }
 
 interface GetUserMetricsUseCaseResponse {
