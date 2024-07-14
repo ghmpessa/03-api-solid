@@ -19,7 +19,7 @@ app.register(checkInsRoutes)
 app.setErrorHandler((error, _, res) => {
   if (error instanceof ZodError) {
     return res
-      .status(404)
+      .status(400)
       .send({ message: 'Validation error.', issue: error.format() })
   }
 
