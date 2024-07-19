@@ -21,7 +21,7 @@ export class CheckInUseCase {
   constructor(
     private checkInsRepository: CheckInsRepository,
     private gymsRepository: GymsRepository,
-  ) { }
+  ) {}
 
   async execute({
     userId,
